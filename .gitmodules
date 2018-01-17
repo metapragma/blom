@@ -1,0 +1,6 @@
+[submodule "templates/simple"]
+	path = templates/simple
+	url = https://github.com/escapace/blom-simple.git
+[submodule "vendor/manage"]
+	path = vendor/manage
+	url = https://github.com/escapace/manage.git

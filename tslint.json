@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "tslint-config-escapace"
+  ],
+  "rules": {
+    "type-literal-delimiter": false,
+    "no-unsafe-any": false,
+    "completed-docs": false
+  }
+}

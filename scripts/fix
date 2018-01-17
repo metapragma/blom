@@ -1,0 +1,41 @@
+#!/usr/bin/env bash
+#
+# vim: set ft=sh:
+#
+# @description prettier & tslint --fix
+
+main ()
+{
+    verbose true
+    strict true
+
+    local prettier="${MANAGE_REPOSITORY}/node_modules/prettier/bin-prettier.js"
+    local tslint="${MANAGE_REPOSITORY}/node_modules/tslint/bin/tslint"
+
+    local files
+
+    while read -d '' -r file
+    do
+        files+=("${file}")
+    done < <(find . -type f \
+        -path './src/*' \
+        -name '*.ts' \
+        -print0 2> /dev/null)
+
+    "${prettier}" --parser typescript --trailing-comma none --no-semi --single-quote --write "${files[@]}"
+    "${tslint}" --project 'tsconfig.json' --config 'tslint.json' --fix "${files[@]}"
+
+    files=()
+
+    cd "${MANAGE_REPOSITORY}/entries" || exit 1
+
+    while read -d '' -r file
+    do
+        files+=("${file}")
+    done < <(find . -type f \
+        -name '*.ts' \
+        -print0 2> /dev/null)
+
+    "${prettier}" --parser typescript --trailing-comma none --no-semi --single-quote --write "${files[@]}"
+    "${tslint}" --project 'tsconfig.json' --config '../tslint.json' --fix "${files[@]}"
+}
