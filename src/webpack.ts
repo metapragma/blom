@@ -352,7 +352,10 @@ export const webpackBaseConfiguration = (
     ]
   },
   resolveLoader: {
-    modules: [path.join(home(state), 'node_modules')]
+    modules: [
+      path.join(context(state), 'node_modules'),
+      path.join(home(state), 'node_modules')
+    ]
   },
   performance: {
     hints: false
